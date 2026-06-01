@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soluelec - Soluciones Eléctricas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0b3b60;
+            --secondary-blue: #1b5b8c;
+            --accent-orange: #f26f21;
+            --light-bg: #f8fbfc;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .hero::after { display: none; }
+            .card { break-inside: avoid; }
+            footer { break-inside: avoid; }
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Nav & Header */
+        header {
+            background: #f0f2f5;
+            padding: 20px 5%;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: static;
+            z-index: 100;
+        }
+
+        .logo-container img {
+            max-height: 140px;
+            object-fit: contain;
+            mix-blend-mode: darken;
+        }
+
+        .header-contact {
+            text-align: right;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .header-contact span {
+            display: block;
+            color: var(--accent-orange);
+            font-size: 0.9em;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 80px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .hero p strong {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: -40px auto 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--accent-orange);
+            display: block;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            text-align: justify;
+            color: var(--text-light);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid */
+        .services {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            border-bottom: 4px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-orange);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(242, 111, 33, 0.1);
+            color: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .card-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: currentColor;
+        }
+
+        .card h3 {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Differentiators Section */
+        .features {
+            background: white;
+            padding: 80px 5%;
+        }
+
+        .features-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            padding: 15px 20px;
+            background: var(--light-bg);
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .features-list li:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-left-color: var(--accent-orange);
+        }
+
+        .features-list li svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            fill: var(--accent-orange);
+        }
+
+        /* Footer / Contact */
+        footer {
+            background: var(--primary-blue);
+            color: white;
+            padding: 60px 5% 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px 40px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .contact-item:hover {
+            background: var(--accent-orange);
+        }
+
+        .contact-item svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            margin-right: 15px;
+        }
+
+        .contact-item span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .features-list { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 15px; }
+            .header-contact { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo_nuevo.png" onerror="this.onerror=null; this.src='logo_nuevo.jpg';" alt="Soluelec Servicios Eléctricos">
+        </div>
+        <div class="header-contact">
+            ¿Emergencia? Llámenos ahora
+            <span>+56 9 6257 9751</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Soluciones Eléctricas</h1>
+            <p>La solución a tus problemas, <strong>experiencia, imaginación y responsabilidad</strong> nos distinguen.</p>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2 class="section-title">¿Quiénes Somos?</h2>
+        <p>
+            Somos una empresa ariqueña, con experiencia en la construcción eléctrica de diferentes proyectos de la zona por más de 15 años. Garantizamos el resultado que requieres y la solución práctica a problemas eléctricos, optimizando la construcción y los costos para su total tranquilidad.
+        </p>
+    </section>
+
+    <section class="services">
+        <h2 class="section-title">Nuestros Servicios Principales</h2>
+        <div class="grid">
+            
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M7 2a2 2 0 0 0-2 2v2H3c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h2v4c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-4h2c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2V4c0-1.1-.9-2-2-2H7zm0 2h10v2h-4v2h4v4h-4v2h4v2H7v-2h4v-2H7v-4h4V6H7V4zm-4 4h2v4H3V8zm18 0h2v4h-2V8z"/></svg>
+                </div>
+                <h3>Construcción de empalmes</h3>
+                <p>Empalmes monofásicos y trifásicos. Especialistas en tendido aéreo y soterrado.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                </div>
+                <h3>Inscripción de planos ante SEC</h3>
+                <p>Gestionamos la validación técnica en la Superintendencia de Electricidad y Combustibles.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                </div>
+                <h3>Diseño y gestión de eficiencia</h3>
+                <p>Proyectos de diseño enfocados en la eficiencia energética y construcción eléctrica integral.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.06c-5.5 1.51-9.5 6.53-9.5 12.54 0 7.18 5.82 13 13 13 5.4 0 9.87-3.23 11.89-7.85-6.52.28-11.89-4.88-11.89-11.39V2.06zM7 16h10v2H7v-2z"/></svg>
+                </div>
+                <h3>Energías Renovables</h3>
+                <p>Implementación de sistemas de energía solar (fotovoltaica) y eólica sustentable.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M10.88 4.75c0-.69.56-1.25 1.25-1.25s1.25.56 1.25 1.25c0 .63-.44 1.15-1.04 1.23L13.1 9h2.8l2.9-4.34c-1.12-.42-1.99-1.42-2.14-2.66h-1.34c.03-.16.08-.31.08-.47 0-.97-.78-1.75-1.75-1.75S11.9 .56 11.9 1.53c0 .16.05.31.08.47H10.6c-.15 1.24-1.02 2.24-2.14 2.66L11.37 9h2.8L11.93 6.02c-.62-.12-1.05-.63-1.05-1.27zM2.81 14.1L5.7 9.77c-.12-.6.18-1.23.77-1.44l1.1-.38v2.1l-.85.3 1.94 2.92H6.9l-2.09 3.13 1.1.37v2.1l-2.2-.75c-.53-.19-.84-.71-.9-1.25zM21.19 14.1c-.06.54-.37 1.06-.9 1.25l-2.2.75v-2.1l1.1-.37-2.09-3.13h-1.76l1.94-2.92-.85-.3v-2.1l1.1.38c.59.21.89.84.77 1.44l2.89 4.33zM12 11c-2.76 0-5 2.24-5 5H5l7 7 7-7h-2c0-2.76-2.24-5-5-5z"/></svg>
+                </div>
+                <h3>Ingeniería Eléctrica</h3>
+                <p>Elaboración de memoria de cálculos y construcción avanzada en media tensión.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14H11v-4h2v4zm0-6H11V6h2v4z"/></svg>
+                </div>
+                <h3>Bombas Eléctricas</h3>
+                <p>Instalación, mantenimiento y reparación de sistemas de bombas eléctricas.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-container">
+            <h2 class="section-title">¿Cómo nos diferenciamos?</h2>
+            <ul class="features-list">
+                <li>
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    Personal certificado y altamente capacitado
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    Cumplimiento de normativas nacionales e internacionales
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    Atención 24/7 para emergencias
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    Garantía en todos los trabajos realizados
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    Uso de materiales de alta calidad
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Contáctenos</h2>
+        <p>Solicite su cotización o visita en terreno hoy mismo</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                <span>+56 9 6257 9751</span>
+            </div>
+            
+            <div class="contact-item" style="cursor: pointer;" onclick="window.location.href='mailto:Soluelec2026@outlook.com'">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                <span>Soluelec2026@outlook.com</span>
+            </div>
+        </div>
+        
+        <p style="font-size: 0.9rem; opacity: 0.5; margin-bottom: 0;">&copy; 2024 Soluelec - Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

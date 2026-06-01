@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Convertir Logo a PNG</title>
+</head>
+<body style="text-align: center; padding: 50px; font-family: sans-serif; background: #e9ecef;">
+    <h2>Tu Logo en Alta Definición</h2>
+    <p>Recreamos tu logo exactamente como el original. Presiona el botón para descargarlo como imagen PNG de fondo transparente y alta calidad.</p>
+    
+    <div style="background: white; padding: 40px; display: inline-block; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <!-- El canvas donde se dibujará la imagen para exportar -->
+        <canvas id="canvas" width="2800" height="800" style="display: none;"></canvas>
+        
+        <!-- Preview -->
+        <div id="preview" style="max-width: 700px; border: 1px dashed #ccc; padding: 20px;"></div>
+        
+        <br><br>
+        <button id="btn-download" style="padding: 15px 30px; background: #f26f21; color: white; border: none; font-size: 18px; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#d95d10'" onmouseout="this.style.background='#f26f21'">
+            Descargar como Imagen PNG
+        </button>
+    </div>
+
+    <script>
+        const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 200" width="2800" height="800">
+  <defs>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F9A41A"/>
+      <stop offset="100%" stop-color="#F27618"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#154B86"/>
+      <stop offset="100%" stop-color="#102E5C"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF338"/>
+      <stop offset="100%" stop-color="#FFBD0A"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10, 10)">
+    <g transform="translate(0, 5)">
+      <polygon points="35,60 50,30 55,55" fill="#F9A41A" />
+      <polygon points="52,50 72,18 80,45" fill="#F9A41A" />
+      <polygon points="78,45 105,10 110,40" fill="#F9A41A" />
+      <polygon points="108,40 135,18 135,45" fill="#F9A41A" />
+      <polygon points="130,40 155,30 145,55" fill="#F9A41A" />
+      
+      <path d="M 25 90 A 65 65 0 0 1 155 90 Z" fill="url(#sun)" />
+      <path d="M 25 90 A 65 65 0 0 0 155 90 Z" fill="url(#panel)" />
+
+      <path d="M 25 90 L 155 90 M 35 115 L 145 115 M 53 135 L 127 135" stroke="white" stroke-width="2.5" fill="none"/>
+      <path d="M 90 90 L 90 155 M 70 90 L 50 145 M 110 90 L 130 145" stroke="white" stroke-width="2.5" fill="none"/>
+
+      <path d="M 50 120 L 55 130 L 65 135 L 55 140 L 50 150 L 45 140 L 35 135 L 45 130 Z" fill="white" />
+
+      <path d="M 140 65 L 80 110 L 95 115 L 45 160 L 105 120 L 90 115 Z" fill="url(#bolt)" stroke="white" stroke-width="1.5"/>
+    </g>
+
+    <g transform="translate(170, 120)">
+      <text x="0" y="0" font-family="'Arial Black', 'Trebuchet MS', sans-serif" font-size="82" font-weight="900" font-style="italic" fill="#0E3D7C" letter-spacing="-3">Solu</text>
+      <text x="190" y="0" font-family="'Arial Black', 'Trebuchet MS', sans-serif" font-size="82" font-weight="900" font-style="italic" fill="#F07D10" letter-spacing="-3">elec</text>
+      
+      <text x="15" y="40" font-family="'Arial Black', Arial, sans-serif" font-size="20" font-weight="900" fill="#0E3D7C" letter-spacing="0.5">SERVICIOS ELECTRICOS</text>
+    </g>
+  </g>
+</svg>`;
+
+        // Convertir el string SVG en Data URL
+        const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+        const DOMURL = window.URL || window.webkitURL || window;
+        const url = DOMURL.createObjectURL(svgBlob);
+
+        const img = new Image();
+        img.onload = () => {
+            // Mostrar como preview en la pantalla
+            const previewImg = new Image();
+            previewImg.src = url;
+            previewImg.style.width = '100%';
+            previewImg.style.height = 'auto';
+            document.getElementById('preview').appendChild(previewImg);
+
+            // Preparar botón para descargar en el canvas
+            document.getElementById('btn-download').onclick = () => {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Fondo transparente
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // Exportar como PNG HD
+                const pngUrl = canvas.toDataURL("image/png");
+                const link = document.createElement('a');
+                link.download = 'logo_soluelec_perfecto.png';
+                link.href = pngUrl;
+                link.click();
+            };
+        };
+        img.src = url;
+    </script>
+</body>
+</html>

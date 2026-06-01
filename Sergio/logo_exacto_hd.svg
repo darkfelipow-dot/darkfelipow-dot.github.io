@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 200" width="100%" height="100%">
+  <defs>
+    <!-- Gradientes sacados de los colores exactos de tu imagen -->
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F9A41A"/>
+      <stop offset="100%" stop-color="#F27618"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#154B86"/>
+      <stop offset="100%" stop-color="#102E5C"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF338"/>
+      <stop offset="100%" stop-color="#FFBD0A"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10, 10)">
+    <!-- OVAL ICON (El círculo de la izquierda) -->
+    <g transform="translate(0, 5)">
+      <!-- Rayos del sol -->
+      <polygon points="35,60 50,30 55,55" fill="#F9A41A" />
+      <polygon points="52,50 72,18 80,45" fill="#F9A41A" />
+      <polygon points="78,45 105,10 110,40" fill="#F9A41A" />
+      <polygon points="108,40 135,18 135,45" fill="#F9A41A" />
+      <polygon points="130,40 155,30 145,55" fill="#F9A41A" />
+      
+      <!-- Mitad del Sol y Cielo -->
+      <path d="M 25 90 A 65 65 0 0 1 155 90 Z" fill="url(#sun)" />
+
+      <!-- Mitad panel solar -->
+      <path d="M 25 90 A 65 65 0 0 0 155 90 Z" fill="url(#panel)" />
+
+      <!-- Líneas de los paneles solares -->
+      <path d="M 25 90 L 155 90 M 35 115 L 145 115 M 53 135 L 127 135" stroke="white" stroke-width="2.5" fill="none"/>
+      <path d="M 90 90 L 90 155 M 70 90 L 50 145 M 110 90 L 130 145" stroke="white" stroke-width="2.5" fill="none"/>
+
+      <!-- Destello blanco en el panel -->
+      <path d="M 50 120 L 55 130 L 65 135 L 55 140 L 50 150 L 45 140 L 35 135 L 45 130 Z" fill="white" />
+
+      <!-- Rayo de electricidad amarillo -->
+      <path d="M 140 65 L 80 110 L 95 115 L 45 160 L 105 120 L 90 115 Z" fill="url(#bolt)" stroke="white" stroke-width="1.5"/>
+    </g>
+
+    <!-- TEXTO EXACTO -->
+    <g transform="translate(170, 120)">
+      <!-- "Solu" color azul y "elec" color naranja, con la misma tipografía inclinada -->
+      <text x="0" y="0" font-family="'Arial Black', 'Trebuchet MS', sans-serif" font-size="82" font-weight="900" font-style="italic" fill="#0E3D7C" letter-spacing="-3">Solu</text>
+      <text x="190" y="0" font-family="'Arial Black', 'Trebuchet MS', sans-serif" font-size="82" font-weight="900" font-style="italic" fill="#F07D10" letter-spacing="-3">elec</text>
+      
+      <!-- SERVICIOS ELECTRICOS -->
+      <text x="15" y="40" font-family="'Arial Black', Arial, sans-serif" font-size="20" font-weight="900" fill="#0E3D7C" letter-spacing="0.5">SERVICIOS ELECTRICOS</text>
+    </g>
+  </g>
+</svg>
