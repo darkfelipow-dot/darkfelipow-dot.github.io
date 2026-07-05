@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Remoto Ragnarok</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2e; /* Fondo oscuro tipo gamer */
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        h1 { margin-bottom: 40px; }
+        
+        .boton-macro {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 30px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+            transition: transform 0.1s;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px;
+        }
+        
+        .boton-macro:active {
+            transform: scale(0.95); /* Efecto de hundirse al presionar */
+            background-color: #ff6b81;
+        }
+
+        #estado {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #7bed9f;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎮 Panel de Control</h1>
+
+    <!-- Botón para enviar la tecla F9 -->
+    <button class="boton-macro" onclick="enviarSenal('f9')">
+        🔥 Presionar F9
+    </button>
+    
+    <!-- Botón de ejemplo para otra tecla (ej. 1) -->
+    <button class="boton-macro" style="background-color: #3742fa; box-shadow: 0 5px 15px rgba(55, 66, 250, 0.4);" onclick="enviarSenal('1')">
+        ⚡ Presionar 1
+    </button>
+
+    <div id="estado">Esperando conexión...</div>
+
+    <script>
+        function enviarSenal(tecla) {
+            const estadoDiv = document.getElementById('estado');
+            estadoDiv.innerText = `Enviando ${tecla}...`;
+            estadoDiv.style.color = "yellow";
+
+            const urlNgrok = "https://backtalk-aluminum-diaphragm.ngrok-free.dev";
+            const tokenSecret = "3G69ums78EFnXwcfUJuh5LBEPdd_7DqL2JTDwSCPkE2KJBHhk";
+            
+            // Aquí está la magia: le decimos a Ngrok que salte la advertencia
+            fetch(`${urlNgrok}/presionar/${tecla}?token=${tokenSecret}`, {
+                method: 'GET',
+                headers: {
+                    'ngrok-skip-browser-warning': 'true'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        estadoDiv.innerText = `✅ ¡Señal ${tecla.toUpperCase()} enviada y ejecutada!`;
+                        estadoDiv.style.color = "#7bed9f";
+                    } else {
+                        estadoDiv.innerText = `❌ Error: Contraseña incorrecta.`;
+                        estadoDiv.style.color = "#ff4757";
+                    }
+                })
+                .catch(error => {
+                    estadoDiv.innerText = `🔌 Error de conexión.`;
+                    estadoDiv.style.color = "#ff4757";
+                    console.error("Error al enviar:", error);
+                });
+        }
+
+    </script>
+</body>
+</html>
