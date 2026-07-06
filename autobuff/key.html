@@ -17,6 +17,21 @@
         .boton-macro:active { transform: scale(0.95); }
         
         #estado { margin-top: 20px; font-size: 18px; }
+
+        /* Panel de Chat Ragnarok */
+        .panel-chat { margin-top: 20px; background-color: #2f3542; border: 2px solid #ffa502; border-radius: 12px; padding: 20px; max-width: 600px; display: inline-block; width: 100%; box-sizing: border-box; }
+        .panel-chat h3 { margin-top: 0; color: #ffa502; }
+        .input-chat { width: 100%; box-sizing: border-box; padding: 12px 15px; font-size: 16px; border-radius: 8px; border: 2px solid #ffa502; background-color: #1e1e2e; color: white; outline: none; font-family: 'Courier New', monospace; }
+        .input-chat:focus { border-color: #eccc68; }
+        .btn-enviar-chat { margin-top: 10px; background-color: #ffa502; color: #1e1e2e; border: none; padding: 12px 30px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; }
+        .btn-enviar-chat:active { transform: scale(0.97); }
+        .comandos-rapidos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .cmd-rapido { background-color: #3d3d5c; color: #eccc68; border: 1px solid #ffa502; border-radius: 6px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
+        .cmd-rapido:active { background-color: #ffa502; color: #1e1e2e; }
+        .selector-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+        .selector-ventana { flex: 1; padding: 10px; border-radius: 8px; border: 2px solid #ffa502; background-color: #1e1e2e; color: white; font-size: 14px; outline: none; }
+        .btn-refresh { background-color: #3d3d5c; border: 2px solid #ffa502; color: #ffa502; border-radius: 8px; padding: 10px 14px; font-size: 16px; cursor: pointer; }
+        .btn-refresh:active { background-color: #ffa502; color: #1e1e2e; }
     </style>
 </head>
 <body>
@@ -42,9 +57,27 @@
         <!-- Contenedor de la pantalla -->
         <div id="contenedor-pantalla" style="margin-top: 30px; border: 2px solid #3742fa; border-radius: 10px; padding: 10px; display: inline-block; background-color: #000; width: 100%; max-width: 600px;">
             <h3 style="margin-top: 0;">📺 Transmisión en Vivo (Stream)</h3>
-            <img id="imagen-pantalla" src="" alt="Pantalla" style="width: 100%; border-radius: 5px; opacity: 0.5;">
+            <img id="imagen-pantalla" src="" alt="Pantalla" style="width: 100%; border-radius: 5px; opacity: 0.5; cursor: crosshair;">
             <p style="font-size: 12px; color: #a4b0be; margin-bottom: 5px;">(La pantalla se transmite en tiempo real)</p>
             <p id="ancho-banda" style="font-size: 12px; color: #ffeb3b; margin: 0; font-weight: bold;">Consumo: Calculando...</p>
+        </div>
+
+        <!-- Panel de Chat Ragnarok -->
+        <div class="panel-chat">
+            <h3>⚔️ Chat Ragnarok</h3>
+            <p style="font-size: 12px; color: #a4b0be; margin-top: -10px; margin-bottom: 12px;">Escribe un comando y se enviará automáticamente a la ventana de Ragnarok (Enter → Texto → Enter)</p>
+            <!-- Selector de ventana -->
+            <div class="selector-row">
+                <select id="select-ventana" class="selector-ventana">
+                    <option value="">🔄 Cargando ventanas...</option>
+                </select>
+                <button class="btn-refresh" onclick="cargarVentanas()" title="Refrescar lista de ventanas">🔄</button>
+            </div>
+            <input type="text" id="input-chat" class="input-chat" placeholder="Ej: /invite NombrePersonaje">
+            <div class="comandos-rapidos">
+                <button class="cmd-rapido" onclick="setComando('/invite ')">👥 /invite</button>
+            </div>
+            <button class="btn-enviar-chat" onclick="enviarTextoRagnarok()">📨 Enviar al Chat</button>
         </div>
 
         <!-- Botón para cerrar sesión -->
@@ -182,6 +215,109 @@
                     intervaloPantalla = setInterval(actualizarPantallaFetch, 500); 
                 }
             }, 1000);
+        }
+
+        // Agregar evento de click a la pantalla
+        const imgPantalla = document.getElementById('imagen-pantalla');
+        imgPantalla.addEventListener('click', function(e) {
+            if (!tokenActivo) return;
+
+            // Obtener las dimensiones reales de la imagen mostrada
+            const rect = imgPantalla.getBoundingClientRect();
+            
+            // Calcular posición relativa (0.0 a 1.0)
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+
+            // Enviar petición al backend
+            fetch(`${urlNgrok}/click?token=${tokenActivo}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
+                },
+                body: JSON.stringify({ x: x, y: y })
+            })
+            .then(r => r.text())
+            .then(txt => {
+                const estadoDiv = document.getElementById('estado');
+                estadoDiv.innerText = `🖱️ Click en (${(x*100).toFixed(0)}%, ${(y*100).toFixed(0)}%)`;
+                estadoDiv.style.color = "#7bed9f";
+            })
+            .catch(err => console.error(err));
+        });
+
+        function setComando(cmd) {
+            const inputChat = document.getElementById('input-chat');
+            inputChat.value = cmd;
+            inputChat.focus();
+        }
+
+        function cargarVentanas() {
+            if (!tokenActivo) return;
+            const sel = document.getElementById('select-ventana');
+            sel.innerHTML = '<option value="">⏳ Buscando...</option>';
+
+            fetch(`${urlNgrok}/ventanas?token=${tokenActivo}`, {
+                headers: { 'ngrok-skip-browser-warning': 'true' }
+            })
+            .then(r => r.json())
+            .then(lista => {
+                if (lista.length === 0) {
+                    sel.innerHTML = '<option value="">⚠️ No se encontró Ragnarok</option>';
+                    return;
+                }
+                sel.innerHTML = lista.map(v =>
+                    `<option value="${v.hwnd}">${v.titulo}</option>`
+                ).join('');
+            })
+            .catch(() => {
+                sel.innerHTML = '<option value="">❌ Error al cargar</option>';
+            });
+        }
+
+        function enviarTextoRagnarok() {
+            const texto = document.getElementById('input-chat').value.trim();
+            if (!texto) return;
+
+            const hwndSeleccionado = document.getElementById('select-ventana').value;
+            const estadoDiv = document.getElementById('estado');
+            estadoDiv.innerText = `⌨️ Enviando: "${texto}"...`;
+            estadoDiv.style.color = "#ffa502";
+
+            const body = { texto: texto };
+            if (hwndSeleccionado) body.hwnd = parseInt(hwndSeleccionado);
+
+            fetch(`${urlNgrok}/escribir?token=${tokenActivo}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
+                },
+                body: JSON.stringify(body)
+            })
+            .then(r => r.text())
+            .then(txt => {
+                estadoDiv.innerText = `✅ Enviado: "${texto}"`;
+                estadoDiv.style.color = "#7bed9f";
+                document.getElementById('input-chat').value = '';
+            })
+            .catch(err => {
+                estadoDiv.innerText = `❌ Error al enviar texto`;
+                estadoDiv.style.color = "#ff4757";
+            });
+        }
+
+        // Permitir enviar con Enter desde el input de chat
+        document.getElementById('input-chat').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') enviarTextoRagnarok();
+        });
+
+        // Modificamos iniciarSesion para que también cargue las ventanas al iniciar
+        const _oldIniciarSesion2 = iniciarSesion;
+        iniciarSesion = function() {
+            _oldIniciarSesion2();
+            setTimeout(() => { if (tokenActivo) cargarVentanas(); }, 1200);
         }
     </script>
 </body>
