@@ -107,12 +107,34 @@
             .catch(error => console.error("Error:", error));
         }
 
-        function iniciarTransmision() {
+        let intervaloPantalla = null;
+
+        function actualizarPantallaFetch() {
             if (!tokenActivo) return;
-            const img = document.getElementById('imagen-pantalla');
-            // Al asignar la ruta de stream, el navegador se quedará cargando los frames continuamente
-            img.src = `${urlNgrok}/stream_pantalla?token=${tokenActivo}`;
-            img.style.opacity = 1;
+            
+            // Usamos fetch en lugar de <img> directamente para poder enviar el header de Ngrok
+            fetch(`${urlNgrok}/captura?token=${tokenActivo}&t=${new Date().getTime()}`, {
+                method: 'GET',
+                headers: { 'ngrok-skip-browser-warning': 'true' }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Error al obtener captura');
+                return response.blob();
+            })
+            .then(blob => {
+                const url = URL.createObjectURL(blob);
+                const img = document.getElementById('imagen-pantalla');
+                
+                // Liberar memoria de la imagen anterior
+                if (img.dataset.blobUrl) {
+                    URL.revokeObjectURL(img.dataset.blobUrl);
+                }
+                
+                img.src = url;
+                img.dataset.blobUrl = url;
+                img.style.opacity = 1;
+            })
+            .catch(err => console.error("Error en stream:", err));
         }
 
         function cerrarSesion() {
@@ -122,11 +144,14 @@
             document.getElementById('pantalla-macros').style.display = 'none';
             document.getElementById('pantalla-login').style.display = 'inline-block';
             
-            // Detenemos el stream borrando el src
+            if (intervaloPantalla) {
+                clearInterval(intervaloPantalla);
+                intervaloPantalla = null;
+            }
             document.getElementById('imagen-pantalla').src = "";
         }
 
-        // Modificamos iniciarSesion para arrancar la transmisión
+        // Modificamos iniciarSesion para arrancar la transmisión por fetch
         const btnEntrar = document.querySelector('.btn-entrar');
         const oldIniciarSesion = iniciarSesion;
         iniciarSesion = function() {
@@ -134,7 +159,9 @@
             // Esperamos un poco a que se valide y si hay token iniciamos
             setTimeout(() => {
                 if (tokenActivo) {
-                    iniciarTransmision();
+                    actualizarPantallaFetch();
+                    // Actualizamos cada 500ms (medio segundo) para que se vea como video fluido
+                    intervaloPantalla = setInterval(actualizarPantallaFetch, 500); 
                 }
             }, 1000);
         }

@@ -65,5 +65,23 @@ def stream_pantalla():
     
     return Response(generar_video(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/captura', methods=['GET'])
+def captura_unica():
+    token_recibido = request.args.get('token')
+    if token_recibido != MI_CLAVE_SECRETA:
+        return "Acceso denegado", 403
+
+    with mss.mss() as sct:
+        monitor = sct.monitors[1]
+        sct_img = sct.grab(monitor)
+        img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
+        img.thumbnail((800, 600))
+        
+        img_io = io.BytesIO()
+        img.save(img_io, 'JPEG', quality=60)
+        img_io.seek(0)
+        
+        return Response(img_io.getvalue(), mimetype='image/jpeg')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
