@@ -1,0 +1,443 @@
+[
+    {
+        "id": 1086,
+        "name": "Golden Thief Bug",
+        "map": "prt_sewb4",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1115,
+        "name": "Eddga",
+        "map": "pay_fild10",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1150,
+        "name": "Moonlight Flower",
+        "map": "pay_dun04",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1159,
+        "name": "Phreeoni",
+        "map": "moc_fild17",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1112,
+        "name": "Drake",
+        "map": "treasure02",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1157,
+        "name": "Mistress",
+        "map": "mjolnir_04",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1147,
+        "name": "Maya",
+        "map": "ant_hell02",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1190,
+        "name": "Orc Hero",
+        "map": "gef_fild03",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1038,
+        "name": "Osiris",
+        "map": "moc_pryd04",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1039,
+        "name": "Baphomet",
+        "map": "prt_maze03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1272,
+        "name": "Dark Lord",
+        "map": "gl_chyard",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1312,
+        "name": "Turtle General",
+        "map": "tur_dun04",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1087,
+        "name": "Orc Lord",
+        "map": "gef_fild10",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1251,
+        "name": "Stormy Knight",
+        "map": "xmas_dun02",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1252,
+        "name": "Garm",
+        "map": "xmas_fild01",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1046,
+        "name": "Doppelganger",
+        "map": "gef_dun02",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1389,
+        "name": "Dracula",
+        "map": "gef_dun01",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1373,
+        "name": "Lord of the Dead",
+        "map": "niflheim",
+        "respawn_min": 133,
+        "respawn_max": 133,
+        "last_killed": null
+    },
+    {
+        "id": 1511,
+        "name": "Amon Ra",
+        "map": "moc_pryd06",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 1583,
+        "name": "Tao Gunka",
+        "map": "beach_dun",
+        "respawn_min": 300,
+        "respawn_max": 310,
+        "last_killed": null
+    },
+    {
+        "id": 1623,
+        "name": "RSX-0806",
+        "map": "ein_dun02",
+        "respawn_min": 125,
+        "respawn_max": 135,
+        "last_killed": null
+    },
+    {
+        "id": 1492,
+        "name": "Incantation Samurai",
+        "map": "ama_dun03",
+        "respawn_min": 91,
+        "respawn_max": 101,
+        "last_killed": null
+    },
+    {
+        "id": 1630,
+        "name": "White Lady",
+        "map": "lou_dun03",
+        "respawn_min": 117,
+        "respawn_max": 127,
+        "last_killed": null
+    },
+    {
+        "id": 1688,
+        "name": "Lady Tanee",
+        "map": "ayo_dun02",
+        "respawn_min": 420,
+        "respawn_max": 430,
+        "last_killed": null
+    },
+    {
+        "id": 1719,
+        "name": "Detardeurus",
+        "map": "abyss_03",
+        "respawn_min": 180,
+        "respawn_max": 190,
+        "last_killed": null
+    },
+    {
+        "id": 1734,
+        "name": "Kiel D-01",
+        "map": "kh_dun02",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1708,
+        "name": "Thanatos Phantom",
+        "map": "thana_boss",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1751,
+        "name": "Valkyrie Randgris",
+        "map": "odin_tem03",
+        "respawn_min": 480,
+        "respawn_max": 490,
+        "last_killed": null
+    },
+    {
+        "id": 1768,
+        "name": "Gloom Under Night",
+        "map": "ra_san05",
+        "respawn_min": 300,
+        "respawn_max": 310,
+        "last_killed": null
+    },
+    {
+        "id": 1779,
+        "name": "Ktullanux",
+        "map": "ice_dun03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": "atroce_master",
+        "sprite_id": 1785,
+        "name": "Atroce",
+        "map": "VARIOS",
+        "spawn_group": "atroce",
+        "is_master": true,
+        "respawn_min": 0,
+        "respawn_max": 0,
+        "last_killed": null
+    },
+    {
+        "id": 1785,
+        "sprite_id": 1785,
+        "name": "Atroce",
+        "map": "ra_fild03",
+        "respawn_min": 180,
+        "respawn_max": 190,
+        "spawn_group": "atroce",
+        "last_killed": null
+    },
+    {
+        "id": 17852,
+        "sprite_id": 1785,
+        "name": "Atroce",
+        "map": "ra_fild04",
+        "respawn_min": 300,
+        "respawn_max": 310,
+        "spawn_group": "atroce",
+        "last_killed": null
+    },
+    {
+        "id": 17853,
+        "sprite_id": 1785,
+        "name": "Atroce",
+        "map": "ve_fild01",
+        "respawn_min": 180,
+        "respawn_max": 190,
+        "spawn_group": "atroce",
+        "last_killed": null
+    },
+    {
+        "id": 17854,
+        "sprite_id": 1785,
+        "name": "Atroce",
+        "map": "ve_fild02",
+        "respawn_min": 360,
+        "respawn_max": 370,
+        "spawn_group": "atroce",
+        "last_killed": null
+    },
+    {
+        "id": 17855,
+        "sprite_id": 1785,
+        "name": "Atroce",
+        "map": "gld_dun03_2",
+        "respawn_min": 480,
+        "respawn_max": 490,
+        "spawn_group": "atroce",
+        "last_killed": null
+    },
+    {
+        "id": 1832,
+        "name": "Ifrit",
+        "map": "thor_v03",
+        "respawn_min": 660,
+        "respawn_max": 670,
+        "last_killed": null
+    },
+    {
+        "id": 1871,
+        "name": "Fallen Bishop",
+        "map": "abbey02",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1874,
+        "name": "Beelzebub",
+        "map": "nameless_n",
+        "respawn_min": 720,
+        "respawn_max": 730,
+        "last_killed": null
+    },
+    {
+        "id": 1885,
+        "name": "Gopinich",
+        "map": "mosk_dun03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 2068,
+        "name": "Boitata",
+        "map": "bra_dun02",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 2253,
+        "sprite_id": 2165,
+        "name": "Queen Scaraba",
+        "map": "dic_dun02",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 2255,
+        "sprite_id": 2165,
+        "name": "Golden Queen Scaraba",
+        "map": "dic_dun03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 2156,
+        "sprite_id": 1511,
+        "name": "Nightmare Amon Ra",
+        "map": "moc_prydn2",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    },
+    {
+        "id": 21652,
+        "sprite_id": 1039,
+        "name": "Nightmare Baphomet",
+        "map": "prt_maze03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1652,
+        "name": "Egnigem Cenia",
+        "map": "lhz_dun02",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1685,
+        "name": "Vesper",
+        "map": "juperos_03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1647,
+        "name": "Assassin Cross Eremes",
+        "map": "lhz_dun03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1649,
+        "name": "High Priest Magaleta",
+        "map": "lhz_dun03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1650,
+        "name": "Sniper Shecil",
+        "map": "lhz_dun03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1648,
+        "name": "Whitesmith Howard",
+        "map": "lhz_dun03",
+        "respawn_min": 120,
+        "respawn_max": 130,
+        "last_killed": null
+    },
+    {
+        "id": 1418,
+        "name": "Evil Snake Lord",
+        "map": "gon_dun03",
+        "respawn_min": 94,
+        "respawn_max": 104,
+        "last_killed": null
+    },
+    {
+        "id": 1157,
+        "name": "Pharaoh",
+        "map": "in_sphinx5",
+        "respawn_min": 60,
+        "respawn_max": 70,
+        "last_killed": null
+    }
+]

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RO MVP Tracker</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>MVP Tracker By RolaWiki</h1>
+            <div id="clock" class="server-time">00:00:00</div>
+        </header>
+
+        <div class="controls">
+            <button id="refresh-btn">Actualizar</button>
+            <input type="text" id="search-input" placeholder="Buscar MVP...">
+            <button id="export-btn" class="action-btn">Exportar</button>
+            <button id="import-btn" class="action-btn">Importar</button>
+        </div>
+
+        <!-- Data Transfer Modal -->
+        <div id="data-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" id="close-data-modal">&times;</span>
+                <h2 id="modal-title">Data Transfer</h2>
+                <textarea id="data-area" rows="10" placeholder="Pega el código aquí..."></textarea>
+                <div class="modal-actions">
+                    <button id="copy-btn" class="modal-btn">Copiar</button>
+                    <button id="load-btn" class="modal-btn">Cargar Datos</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Time Modal -->
+        <div id="edit-time-modal" class="modal">
+            <div class="modal-content" style="max-width: 800px;">
+                <span class="close-modal" id="close-edit-modal">&times;</span>
+                <h2>Editar Hora y Tumba</h2>
+                <p id="edit-mvp-name" style="margin-bottom: 10px; color: var(--accent-yellow);"></p>
+
+                <div class="edit-layout" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div class="edit-time-section" style="flex: 1; min-width: 250px;">
+                        <label for="edit-time-input" style="display:block; margin-bottom:5px;">Hora de Muerte:</label>
+                        <input type="datetime-local" id="edit-time-input" class="date-input">
+                        <p style="font-size: 0.9rem; color: #aaa;">Haz click en el mapa para marcar la tumba.</p>
+                    </div>
+
+                    <div class="edit-map-section" style="flex: 2; min-width: 300px; position: relative;">
+                        <div id="map-container"
+                            style="position: relative; cursor: crosshair; overflow: hidden; border: 1px solid #444; border-radius: 4px;">
+                            <img id="mvp-map-image" src="" alt="Map" style="width: 100%; display: block;">
+                            <div id="tomb-marker"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions" style="margin-top: 20px;">
+                    <button id="save-time-btn" class="modal-btn">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Selection Modal -->
+        <div id="map-selection-modal" class="modal">
+            <div class="modal-content" style="max-width: 600px;">
+                <span class="close-modal" id="close-map-modal">&times;</span>
+                <h2 style="text-align:center; margin-bottom: 20px;">Selecciona el Mapa</h2>
+                <div id="map-grid-container"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px;">
+                    <!-- Maps injected here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="mvp-grid" class="mvp-grid">
+            <!-- MVP Cards will be injected here -->
+        </div>
+    </div>
+
+    <script src="assets/script.js"></script>
+</body>
+
+</html>

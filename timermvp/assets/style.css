@@ -1,0 +1,319 @@
+:root {
+    --bg-color: #1a1a1d;
+    --card-bg: #2d2d30;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --accent-red: #ff4d4d;
+    --accent-green: #4dff88;
+    --accent-yellow: #ffd700;
+    --border-radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444;
+}
+
+h1 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.5rem;
+    color: var(--accent-green);
+}
+
+.server-time {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    background: var(--card-bg);
+    border: 1px solid #444;
+    color: white;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    flex-grow: 1;
+}
+
+button {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #555;
+}
+
+.mvp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.mvp-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    position: relative;
+    border: 1px solid transparent;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.mvp-card:hover {
+    transform: translateY(-2px);
+    border-color: #555;
+}
+
+.mvp-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 15px;
+    image-rendering: pixelated;
+    /* Enhance pixel art look */
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: var(--border-radius);
+    color: var(--text-main);
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+textarea#data-area {
+    width: 100%;
+    background: #1a1a1d;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-family: 'Roboto Mono', monospace;
+    resize: vertical;
+}
+
+.date-input {
+    width: 100%;
+    background: #1a1a1d;
+    color: white;
+    border: 1px solid #444;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color-scheme: dark;
+    /* Ensures calendar icon/popup is dark mode */
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+#tomb-marker {
+    width: 32px !important;
+    height: 32px !important;
+    background-color: transparent !important;
+    background-image: url('tomb.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none !important;
+    border-radius: 0 !important;
+    mix-blend-mode: multiply;
+    /* Hides white background */
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 999;
+}
+
+.modal-btn {
+    background: var(--accent-green);
+    color: #1a1a1d;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.modal-btn:hover {
+    background: #3ce676;
+}
+
+.action-btn {
+    background: #007bff;
+    /* Blue for actions */
+}
+
+.action-btn:hover {
+    background: #0069d9;
+}
+
+.mvp-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.mvp-info {
+    flex-grow: 1;
+}
+
+.mvp-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+}
+
+.mvp-map {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.mvp-status {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.status-alive {
+    background: rgba(77, 255, 136, 0.2);
+    color: var(--accent-green);
+}
+
+.status-dead {
+    background: rgba(255, 77, 77, 0.2);
+    color: var(--accent-red);
+}
+
+.status-soon {
+    background: rgba(255, 215, 0, 0.2);
+    color: var(--accent-yellow);
+}
+
+.mvp-timer {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.kill-btn {
+    background: var(--accent-red);
+    color: white;
+    margin-top: auto;
+    width: 100%;
+}
+
+.kill-btn:hover {
+    background: #cc0000;
+}
+
+/* Map Selection Grid */
+.map-choice-card {
+    background: #2a2a2e;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.map-choice-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-yellow);
+}
+
+.map-choice-card img {
+    max-width: 100%;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.map-choice-name {
+    font-weight: bold;
+    color: #eee;
+    font-size: 0.9rem;
+}
+
+.map-choice-timer {
+    font-size: 0.8rem;
+    color: #aaa;
+}
