@@ -533,13 +533,25 @@
       .catch(() => {});
   }
 
-  // === SSE ===
-  function connectSSE() {
+  // === SSE BYPASS NGROK ===
+  async function connectSSE() {
     const url = `${SERVER_BASE}/api/stream`;
-    const es  = new EventSource(url);
-    es.onopen    = () => { pollBoxTracker(); };
-    es.onmessage = () => { pollBoxTracker(); };
-    es.onerror   = () => { es.close(); setTimeout(connectSSE, 3000); };
+    try {
+      const res = await fetch(url, { headers: { 'ngrok-skip-browser-warning': '1' }});
+      pollBoxTracker();
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, {stream: true});
+        if (chunk.includes('data:')) {
+          pollBoxTracker();
+        }
+      }
+    } catch (e) {
+      setTimeout(connectSSE, 3000);
+    }
   }
 
   // Init
