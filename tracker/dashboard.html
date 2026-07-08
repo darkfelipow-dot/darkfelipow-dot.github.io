@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity RO Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --card: rgba(17, 24, 39, 0.7);
+            --primary: #6366f1;
+            --secondary: #10b981;
+            --text: #f9fafb;
+            --muted: #9ca3af;
+            --danger: #ef4444;
+            --accent: #8b5cf6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        aside {
+            background: rgba(17, 24, 39, 0.4);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+        }
+
+        nav button {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        nav button.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        nav button:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem;
+            max-width: 1200px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .status-pill {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+
+        /* HP/SP Bars */
+        .status-bars {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .bar-container {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            height: 40px;
+            border-radius: 0.75rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bar-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .bar-hp { background: linear-gradient(to right, #ef4444, #f87171); }
+        .bar-sp { background: linear-gradient(to right, #3b82f6, #60a5fa); }
+
+        .bar-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 { font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--text); }
+
+        .field { margin-bottom: 1.5rem; }
+        label { display: block; color: var(--muted); font-size: 0.875rem; margin-bottom: 0.5rem; font-weight: 500; }
+        
+        input, select {
+            width: 100%;
+            background: rgba(3, 7, 18, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.875rem;
+            border-radius: 0.75rem;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus { outline: none; border-color: var(--primary); }
+
+        button.btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            width: 100%;
+        }
+
+        button.btn-primary:hover { transform: translateY(-2px); background: #4f46e5; }
+
+        /* Item List */
+        .item-search {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .item-row {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .item-info { display: flex; align-items: center; gap: 1rem; }
+        .item-img { width: 32px; height: 32px; object-fit: contain; }
+        .item-id { font-family: monospace; font-weight: 600; color: var(--muted); }
+
+        .btn-remove {
+            color: var(--danger);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+        }
+
+        /* Tabs Logic */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside>
+            <div class="logo">ANTIGRAVITY SUITE</div>
+            <nav>
+                <button class="active" onclick="showTab('settings')">Dashboard</button>
+                <button onclick="showTab('filter')">Filtro de Items</button>
+            </nav>
+            
+            <div style="margin-top: auto;">
+                <div id="sync-info" style="font-size: 0.75rem; color: var(--muted);">
+                    Pos: 0, 0
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <header>
+                <div>
+                    <h1 style="font-size: 2rem; letter-spacing: -0.02em;">Panel de Control</h1>
+                    <p style="color: var(--muted);">Gestiona tus automatizaciones de Ragnarok.</p>
+                </div>
+                <div class="status-pill">
+                    <div class="dot"></div>
+                    <span id="status-label">Detectando Puerto...</span>
+                </div>
+            </header>
+
+            <div class="status-bars">
+                <div class="bar-container">
+                    <div id="hp-fill" class="bar-fill bar-hp"></div>
+                    <div class="bar-text">HP: <span id="hp-val">0</span>%</div>
+                </div>
+                <div class="bar-container">
+                    <div id="sp-fill" class="bar-fill bar-sp"></div>
+                    <div class="bar-text">SP: <span id="sp-val">0</span>%</div>
+                </div>
+            </div>
+
+            <!-- TABA: CONFIGURACION -->
+            <div id="settings" class="tab-content active">
+                <div class="grid">
+                    <div class="card">
+                        <h2>Modo de Funcionamiento</h2>
+                        <div class="field">
+                            <label>Selecciona el método de Autoloot</label>
+                            <select id="mode" onchange="toggleModeFields()">
+                                <option value="greed">Auto Greed (Teclado)</option>
+                                <option value="mouse">Auto Pick (Mouse)</option>
+                            </select>
+                        </div>
+                        
+                        <div id="greed-fields">
+                            <div class="field">
+                                <label>Tecla de Greed</label>
+                                <input type="text" id="greed_hotkey" placeholder="Ej: 3" maxlength="1">
+                            </div>
+                            <div class="field">
+                                <label>Cooldown (Segundos)</label>
+                                <input type="number" id="greed_cooldown" value="10">
+                            </div>
+                            <div class="field">
+                                <label>Delay de Reacción (ms)</label>
+                                <input type="number" id="greed_delay_ms" value="300">
+                            </div>
+                        </div>
+
+                        <div id="mouse-fields" style="display:none;">
+                            <div class="field">
+                                <label>Delay del Mouse (ms)</label>
+                                <input type="number" id="mouse_delay_ms" value="200">
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" onclick="saveConfig()">Guardar Configuración</button>
+                    </div>
+
+                    <div class="card">
+                        <h2>AutoPot (HP / SP)</h2>
+                        <div class="field" style="display: flex; align-items: center; gap: 1rem;">
+                            <input type="checkbox" id="autopot_enabled" style="width: auto;">
+                            <label style="margin-bottom: 0;">Activar AutoPot</label>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="field">
+                                <label>HP Threshold (%)</label>
+                                <input type="number" id="hp_threshold" value="70">
+                            </div>
+                            <div class="field">
+                                <label>Tecla HP</label>
+                                <input type="text" id="hp_hotkey" value="1" maxlength="1">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Delay entre Pociones HP (ms)</label>
+                            <input type="number" id="hp_pot_delay" value="300">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="field">
+                                <label>SP Threshold (%)</label>
+                                <input type="number" id="sp_threshold" value="30">
+                            </div>
+                            <div class="field">
+                                <label>Tecla SP</label>
+                                <input type="text" id="sp_hotkey" value="2" maxlength="1">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Delay entre Pociones SP (ms)</label>
+                            <input type="number" id="sp_pot_delay" value="500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABA: FILTRO -->
+            <div id="filter" class="tab-content">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <h2>Filtro de Items (AutoLoot)</h2>
+                    <div class="item-search">
+                        <input type="number" id="new-item-id" placeholder="ID del item (ej. 992)">
+                        <button class="btn-primary" style="width: auto;" onclick="addItem()">Añadir</button>
+                    </div>
+                    
+                    <div class="item-list" id="item-list">
+                        <!-- Items aqui -->
+                    </div>
+                    
+                    <p style="margin-top: 2rem; font-size: 0.8rem; color: var(--muted); text-align: center;">
+                        Si la lista está vacía, el bot recogerá CUALQUIER item que caiga.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let config = {};
+
+        async function loadConfig() {
+            const res = await fetch('/api/config');
+            config = await res.json();
+            
+            document.getElementById('mode').value = config.mode;
+            document.getElementById('greed_hotkey').value = config.greed_hotkey;
+            document.getElementById('greed_cooldown').value = config.greed_cooldown;
+            document.getElementById('greed_delay_ms').value = config.greed_delay_ms;
+            document.getElementById('mouse_delay_ms').value = config.mouse_delay_ms;
+            
+            document.getElementById('autopot_enabled').checked = config.autopot_enabled;
+            document.getElementById('hp_threshold').value = config.hp_threshold;
+            document.getElementById('hp_hotkey').value = config.hp_hotkey;
+            document.getElementById('hp_pot_delay').value = config.hp_pot_delay || 300;
+            document.getElementById('sp_threshold').value = config.sp_threshold;
+            document.getElementById('sp_hotkey').value = config.sp_hotkey;
+            document.getElementById('sp_pot_delay').value = config.sp_pot_delay || 500;
+            
+            toggleModeFields();
+            renderItems();
+        }
+
+        async function saveConfig() {
+            config.mode = document.getElementById('mode').value;
+            config.greed_hotkey = document.getElementById('greed_hotkey').value;
+            config.greed_cooldown = parseInt(document.getElementById('greed_cooldown').value);
+            config.greed_delay_ms = parseInt(document.getElementById('greed_delay_ms').value);
+            config.mouse_delay_ms = parseInt(document.getElementById('mouse_delay_ms').value);
+
+            config.autopot_enabled = document.getElementById('autopot_enabled').checked;
+            config.hp_threshold = parseInt(document.getElementById('hp_threshold').value);
+            config.hp_hotkey = document.getElementById('hp_hotkey').value;
+            config.hp_pot_delay = parseInt(document.getElementById('hp_pot_delay').value);
+            config.sp_threshold = parseInt(document.getElementById('sp_threshold').value);
+            config.sp_hotkey = document.getElementById('sp_hotkey').value;
+            config.sp_pot_delay = parseInt(document.getElementById('sp_pot_delay').value);
+
+            await fetch('/api/config', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(config)
+            });
+            alert('Configuración guardada.');
+        }
+
+        function toggleModeFields() {
+            const mode = document.getElementById('mode').value;
+            document.getElementById('greed-fields').style.display = (mode === 'greed') ? 'block' : 'none';
+            document.getElementById('mouse-fields').style.display = (mode === 'mouse') ? 'block' : 'none';
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        async function addItem() {
+            const input = document.getElementById('new-item-id');
+            const id = parseInt(input.value);
+            if (id && !config.items.includes(id)) {
+                config.items.push(id);
+                input.value = '';
+                await saveConfig();
+                renderItems();
+            }
+        }
+
+        async function removeItem(id) {
+            config.items = config.items.filter(i => i !== id);
+            await saveConfig();
+            renderItems();
+        }
+
+        function renderItems() {
+            const container = document.getElementById('item-list');
+            container.innerHTML = '';
+            
+            config.items.forEach(id => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <div class="item-info">
+                        <img src="https://static.divine-pride.net/images/items/item/${id}.png" class="item-img" onerror="this.src='https://static.divine-pride.net/images/items/item/501.png'">
+                        <span class="item-id">ID: ${id}</span>
+                    </div>
+                    <button class="btn-remove" onclick="removeItem(${id})">✕</button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Status Polling
+        setInterval(async () => {
+            try {
+                const res = await fetch('/api/status');
+                const data = await res.json();
+                
+                document.getElementById('stat-port').textContent = data.port || 'Buscando...';
+                document.getElementById('stat-sync').textContent = data.sync ? 'Sincronizado' : 'Buscando Player...';
+                document.getElementById('stat-sync').style.color = data.sync ? 'var(--secondary)' : 'var(--muted)';
+                document.getElementById('sync-info').textContent = `Pos: ${data.pos}`;
+                document.getElementById('status-label').textContent = data.port ? 'Activo' : 'Buscando Puerto...';
+                
+                // Update Bars
+                document.getElementById('hp-fill').style.width = data.hp_pct + '%';
+                document.getElementById('hp-val').textContent = data.hp_pct;
+                document.getElementById('sp-fill').style.width = data.sp_pct + '%';
+                document.getElementById('sp-val').textContent = data.sp_pct;
+            } catch {}
+        }, 1000);
+
+        loadConfig();
+    </script>
+</body>
+</html>

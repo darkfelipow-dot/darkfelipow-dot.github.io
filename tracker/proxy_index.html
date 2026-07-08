@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RO Proxy AutoPick Settings</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-color);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #c084fc, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+
+        button.danger {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            padding: 0.25rem 0.75rem;
+        }
+
+        button.danger:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .item-tag {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Proxy AutoPick</h1>
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                <span id="status-text">SOCKS5 Proxy en 127.0.0.1:1080</span>
+            </div>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                Recuerda configurar <strong>Proxifier</strong> para redirigir <code>ragexe.exe</code> a 127.0.0.1 por el puerto 1080 (SOCKS5).
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Configuración Principal</h2>
+            <div class="flex-row">
+                <div class="form-group" style="flex: 1;">
+                    <label for="delay_ms">Retraso antes de recoger (Milisegundos)</label>
+                    <input type="number" id="delay_ms" value="300" min="0" max="5000" step="50">
+                </div>
+                <div class="form-group">
+                    <button onclick="saveSettings()">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Filtro de Objetos (IDs)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">
+                Añade los IDs de los items que quieres recoger automáticamente. Deja la lista vacía para recoger TODO (cuidado con llenar el inventario).
+            </p>
+            
+            <div class="flex-row">
+                <div class="form-group" style="flex: 1;">
+                    <input type="number" id="new-item" placeholder="Ej: 992 (Galactor Card)">
+                </div>
+                <div class="form-group">
+                    <button onclick="addItem()">Añadir Item</button>
+                </div>
+            </div>
+
+            <div class="item-list" id="item-list">
+                <!-- Items se renderizan aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let config = {
+            delay_ms: 300,
+            items: []
+        };
+
+        async function fetchConfig() {
+            try {
+                const res = await fetch('/api/config');
+                config = await res.json();
+                document.getElementById('delay_ms').value = config.delay_ms !== undefined ? config.delay_ms : 300;
+                renderItems();
+            } catch (e) {
+                console.error("Error al cargar config", e);
+            }
+        }
+
+        async function saveSettings() {
+            config.delay_ms = parseInt(document.getElementById('delay_ms').value);
+            
+            await fetch('/api/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(config)
+            });
+            
+            alert('¡Configuración guardada! Se aplicará instantáneamente.');
+        }
+
+        async function addItem() {
+            const input = document.getElementById('new-item');
+            const val = parseInt(input.value);
+            if (val && !config.items.includes(val)) {
+                config.items.push(val);
+                input.value = '';
+                await saveSettings();
+                renderItems();
+            }
+        }
+
+        async function removeItem(id) {
+            config.items = config.items.filter(i => i !== id);
+            await saveSettings();
+            renderItems();
+        }
+
+        function renderItems() {
+            const container = document.getElementById('item-list');
+            container.innerHTML = '';
+            
+            if (config.items.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); font-style: italic; grid-column: 1/-1;">Recogiendo TODO (Filtro vacío).</p>';
+                return;
+            }
+
+            config.items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item-tag';
+                div.innerHTML = `
+                    <span style="font-family: monospace; font-weight: 600;">ID: ${item}</span>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <img src="https://static.divine-pride.net/images/items/item/${item}.png" alt="Item" style="width: 24px; height: 24px; object-fit: contain; border-radius: 4px;">
+                        <button class="danger" onclick="removeItem(${item})">✕</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        fetchConfig();
+        
+        setInterval(async () => {
+            try {
+                await fetch('/api/config');
+                document.getElementById('status-text').textContent = "SOCKS5 Proxy en 127.0.0.1:1080";
+                document.querySelector('.status-dot').style.background = 'var(--success)';
+                document.querySelector('.status-dot').style.boxShadow = '0 0 8px var(--success)';
+            } catch {
+                document.getElementById('status-text').textContent = "Desconectado";
+                document.querySelector('.status-dot').style.background = 'var(--danger)';
+                document.querySelector('.status-dot').style.boxShadow = '0 0 8px var(--danger)';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
