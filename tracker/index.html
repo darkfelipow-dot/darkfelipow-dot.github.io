@@ -463,17 +463,14 @@
     });
   }
 
+  // URL raw del Gist (funciona solo con Gists PÚBLICOS, sin autenticación)
+  const GIST_RAW_BOX  = `https://gist.githubusercontent.com/raw/${GIST_ID}/ro_box_tracker.json`;
+
   function pollBoxTracker() {
-    fetch(`https://api.github.com/gists/${GIST_ID}?t=${new Date().getTime()}`)
+    fetch(GIST_RAW_BOX + '?t=' + new Date().getTime())
       .then(r => r.json())
-      .then(apiData => {
-         if (apiData.files && apiData.files['ro_box_tracker.json']) {
-            const rawContent = apiData.files['ro_box_tracker.json'].content;
-            if (rawContent) {
-               const parsedData = JSON.parse(rawContent);
-               renderBoxTracker(parsedData);
-            }
-         }
+      .then(data => {
+        if (data) renderBoxTracker(data);
       })
       .catch(e => console.log("Error leyendo Gist:", e));
   }
@@ -533,7 +530,7 @@
   // Init
   pollBoxTracker();
   pollStatus();
-  setInterval(pollBoxTracker, 10000); // Polling cada 10 segs para evitar rate limits
+  setInterval(pollBoxTracker, 90000); // Cada 90 seg (Python sube cada 60 seg)
 </script>
 </body>
 </html>
