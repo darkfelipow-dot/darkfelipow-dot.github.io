@@ -8,11 +8,10 @@
 <script>
   // ======================================================
   // CONFIGURACIÓN DE SERVIDOR
-  // Cambia SERVER_BASE si tu Ngrok cambia de dominio
   // Cambia IMG_BASE si mueves las imágenes a otro servidor
   // ======================================================
-  const SERVER_BASE = 'https://backtalk-aluminum-diaphragm.ngrok-free.dev';
-  const IMG_BASE    = 'https://rolawiki.org/tracker/data';
+  const GIST_ID  = '232d0bb34f0ad621b7afa175eee85b8d';
+  const IMG_BASE = 'https://rolawiki.org/tracker/data';
 </script>
 <style>
   :root {
@@ -461,12 +460,18 @@
   }
 
   function pollBoxTracker() {
-    fetch(`${SERVER_BASE}/api/box_tracker`, {
-      headers: { 'ngrok-skip-browser-warning': '1' }
-    })
+    fetch(`https://api.github.com/gists/${GIST_ID}?t=${new Date().getTime()}`)
       .then(r => r.json())
-      .then(renderBoxTracker)
-      .catch(() => {});
+      .then(apiData => {
+         if (apiData.files && apiData.files['ro_box_tracker.json']) {
+            const rawContent = apiData.files['ro_box_tracker.json'].content;
+            if (rawContent) {
+               const parsedData = JSON.parse(rawContent);
+               renderBoxTracker(parsedData);
+            }
+         }
+      })
+      .catch(e => console.log("Error leyendo Gist:", e));
   }
 
   // === MODAL: MOSTRAR PERSONAJES ===
@@ -517,49 +522,14 @@
 
   // === STATUS ===
   function pollStatus() {
-    fetch(`${SERVER_BASE}/api/status`, {
-      headers: { 'ngrok-skip-browser-warning': '1' }
-    })
-      .then(r => r.json())
-      .then(d => {
-        if (d.connected) {
-          dotEl.classList.add('on');
-          statusTx.textContent = `Online (P: ${d.port})`;
-        } else {
-          dotEl.classList.remove('on');
-          statusTx.textContent = 'Desconectado';
-        }
-      })
-      .catch(() => {});
-  }
-
-  // === SSE BYPASS NGROK ===
-  async function connectSSE() {
-    const url = `${SERVER_BASE}/api/stream`;
-    try {
-      const res = await fetch(url, { headers: { 'ngrok-skip-browser-warning': '1' }});
-      pollBoxTracker();
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, {stream: true});
-        if (chunk.includes('data:')) {
-          pollBoxTracker();
-        }
-      }
-    } catch (e) {
-      setTimeout(connectSSE, 3000);
-    }
+    document.getElementById('status-dot').classList.add('on');
+    document.getElementById('status-text').textContent = 'GitHub Sync Mode';
   }
 
   // Init
-  connectSSE();
   pollBoxTracker();
   pollStatus();
-  setInterval(pollStatus,      5000);
-  setInterval(pollBoxTracker,  4000);
+  setInterval(pollBoxTracker, 10000); // Polling cada 10 segs para evitar rate limits
 </script>
 </body>
 </html>
