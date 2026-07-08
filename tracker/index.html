@@ -425,7 +425,11 @@
   // === RENDER BOX TRACKER ===
   function renderBoxTracker(data) {
     totalEl.textContent = data.total || 0;
-    const items = data.items || [];
+    // items puede ser un array (API) o un objeto (JSON crudo del Gist)
+    let items = data.items || [];
+    if (!Array.isArray(items)) {
+      items = Object.values(items).sort((a, b) => (b.count || 0) - (a.count || 0));
+    }
 
     if (items.length === 0) {
       listEl.innerHTML = '';
