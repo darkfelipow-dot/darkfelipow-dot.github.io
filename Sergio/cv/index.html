@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de CV Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-file-signature"></i>
+            <span>ProCV Builder</span>
+        </div>
+        <div class="actions">
+            <button id="printBtn" class="btn btn-primary"><i class="fa-solid fa-download"></i> Descargar PDF</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Editor Column -->
+        <section class="editor-section no-print">
+            <h2>Configuración del CV</h2>
+            <div class="form-group">
+                <label>Estilo de Plantilla</label>
+                <div class="template-selector">
+                    <button class="btn-template active" data-template="template-classic">Clásico</button>
+                    <button class="btn-template" data-template="template-modern">Moderno</button>
+                    <button class="btn-template" data-template="template-minimal">Minimal</button>
+                    <button class="btn-template" data-template="template-elegant">Elegante</button>
+                </div>
+            </div>
+
+            <h2>Detalles Personales</h2>
+            <div class="form-group">
+                <label>Nombre Completo</label>
+                <input type="text" id="nameInput" placeholder="Ej. Juan Pérez" value="Juan Pérez">
+            </div>
+            <div class="form-group">
+                <label>Título Profesional</label>
+                <input type="text" id="titleInput" placeholder="Ej. Desarrollador Web Senior" value="Desarrollador Web Senior">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="emailInput" placeholder="juan@ejemplo.com" value="juan@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="phoneInput" placeholder="+34 123 456 789" value="+34 123 456 789">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Ubicación</label>
+                <input type="text" id="locationInput" placeholder="Ciudad, País" value="Madrid, España">
+            </div>
+
+            <h2>Perfil Profesional</h2>
+            <div class="form-group">
+                <textarea id="summaryInput" rows="4" placeholder="Breve descripción de tu perfil...">Profesional altamente motivado con más de 5 años de experiencia en desarrollo de software, especializado en crear aplicaciones web escalables y eficientes. Apasionado por la tecnología y el aprendizaje continuo.</textarea>
+            </div>
+
+            <h2>Experiencia Laboral</h2>
+            <div id="experienceList">
+                <!-- Experiencia items via JS -->
+            </div>
+            <button class="btn btn-secondary btn-sm" id="addExpBtn"><i class="fa-solid fa-plus"></i> Añadir Experiencia</button>
+
+            <h2 class="mt-4">Educación</h2>
+            <div id="educationList">
+                <!-- Educacion items via JS -->
+            </div>
+            <button class="btn btn-secondary btn-sm" id="addEduBtn"><i class="fa-solid fa-plus"></i> Añadir Educación</button>
+            
+            <h2 class="mt-4">Habilidades</h2>
+            <div class="form-group">
+                <input type="text" id="skillsInput" placeholder="Ej. JavaScript, React, Node.js (separadas por coma)" value="JavaScript, React, Node.js, HTML5, CSS3, Git">
+            </div>
+        </section>
+
+        <!-- Preview Column -->
+        <section class="preview-section">
+            <div class="cv-document" id="cvPreview">
+                <div class="cv-header">
+                    <h1 id="cvName">Juan Pérez</h1>
+                    <h3 id="cvTitle">Desarrollador Web Senior</h3>
+                    <div class="cv-contact">
+                        <span id="cvEmail"><i class="fa-solid fa-envelope"></i> juan@ejemplo.com</span>
+                        <span id="cvPhone"><i class="fa-solid fa-phone"></i> +34 123 456 789</span>
+                        <span id="cvLocation"><i class="fa-solid fa-location-dot"></i> Madrid, España</span>
+                    </div>
+                </div>
+
+                <div class="cv-body">
+                    <div class="cv-section">
+                        <h4 class="cv-section-title">Perfil</h4>
+                        <p id="cvSummary">Profesional altamente motivado con más de 5 años de experiencia en desarrollo de software, especializado en crear aplicaciones web escalables y eficientes. Apasionado por la tecnología y el aprendizaje continuo.</p>
+                    </div>
+
+                    <div class="cv-section">
+                        <h4 class="cv-section-title">Experiencia</h4>
+                        <div id="cvExperienceList" class="cv-items">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+
+                    <div class="cv-section">
+                        <h4 class="cv-section-title">Educación</h4>
+                        <div id="cvEducationList" class="cv-items">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+
+                    <div class="cv-section">
+                        <h4 class="cv-section-title">Habilidades</h4>
+                        <div id="cvSkillsList" class="cv-skills">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
