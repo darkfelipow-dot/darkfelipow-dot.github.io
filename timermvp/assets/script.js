@@ -1,3 +1,5 @@
+let SALA_ID = localStorage.getItem("mvp_sala_id") || "";
+let GITHUB_TOKEN = localStorage.getItem("mvp_github_token") || "";
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('mvp-grid');
     document.getElementById("refresh-btn").addEventListener("click", () => {
@@ -395,9 +397,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Search & Refresh ---
-    refreshBtn.addEventListener('click', () => {
-        fetchStaticData();
-    });
+document.getElementById("btn-actualizar").addEventListener("click", () => {
+    if (SALA_ID) {
+        cargarTimersMVP();
+    } else {
+        // Tu función clásica de recarga local si no hay sala
+    }
+});
     searchInput.addEventListener('input', renderMvps);
 
 
