@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Search & Refresh ---
-document.getElementById("btn-actualizar").addEventListener("click", () => {
+document.getElementById("refresh-btn").addEventListener("click", () => {
     if (SALA_ID) {
         cargarTimersMVP();
     } else {
