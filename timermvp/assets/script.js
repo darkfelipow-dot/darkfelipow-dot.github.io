@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('mvp-grid');
-    const refreshBtn = document.getElementById('refresh-btn');
+    document.getElementById("refresh-btn").addEventListener("click", () => {
+    if (SALA_ID) {
+        cargarTimersMVP();
+    } else {
+        // Si no hay sala, que ejecute tu recarga local clásica de siempre
+        tuFuncionOriginalDeRecargaLocal(); 
+    }
+});
     const searchInput = document.getElementById('search-input');
     const clockEl = document.getElementById('clock');
 

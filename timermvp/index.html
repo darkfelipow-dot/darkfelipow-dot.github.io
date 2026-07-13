@@ -12,6 +12,15 @@
 </head>
 
 <body>
+<!-- Panel de Conexión Privada -->
+<div id="panel-conexion" style="background: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333;">
+    <h3 style="color: #00ff66; margin-top: 0;">Sincronización de Sala</h3>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <input type="text" id="input-sala-id" placeholder="ID de la Sala (Ej: guild-odin)" style="padding: 8px; background: #111; color: #fff; border: 1px solid #555; border-radius: 4px; flex: 1;">
+        <input type="password" id="input-github-token" placeholder="Token de GitHub (Solo para editar)" style="padding: 8px; background: #111; color: #fff; border: 1px solid #555; border-radius: 4px; flex: 1;">
+        <button id="btn-conectar" style="padding: 8px 15px; background: #00ff66; color: #000; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Conectar / Cargar</button>
+    </div>
+</div>
     <div class="container">
         <header>
             <h1>MVP Tracker By RolaWiki</h1>
