@@ -524,4 +524,3 @@ document.getElementById("refresh-btn").addEventListener("click", () => {
         if (event.target == editModal) editModal.style.display = 'none';
         if (event.target == mapModal) mapModal.style.display = 'none';
     };
-});
