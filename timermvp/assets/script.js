@@ -122,6 +122,12 @@ document.getElementById("refresh-btn").addEventListener("click", () => {
 
     // Render cards
     function renderMvps() {
+		const grid = document.getElementById("mvp-grid") || document.querySelector(".grid") || document.getElementById("grid"); 
+    
+    if (!grid) {
+        console.error("No se encontró el contenedor del grid en el HTML");
+        return;
+    }
         grid.innerHTML = '';
         const filter = searchInput.value.toLowerCase();
         const now = Date.now();
